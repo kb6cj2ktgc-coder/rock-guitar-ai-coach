@@ -14,32 +14,43 @@ export async function POST(request: Request) {
 
     const prompt = `${SYSTEM_PROMPT}\n\nConversation so far:\n${messages.slice(-20).map((message) => `${message.role === "user" ? "Student" : "Rock"}: ${message.content}`).join("\n")}\n\nRespond as Rock to the student's latest message.`;
     const models = await availableModels(apiKey);
-    let lastError = "";
+    let lastStatus = "";
 
     for (const model of models) {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${encodeURIComponent(apiKey)}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        const message = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (message) return NextResponse.json({ message });
-      } else {
-        lastError = `${response.status} ${await response.text()}`;
-        // A model can appear in models.list but still reject generateContent.
-        // Try the next permitted model instead of making the user troubleshoot it.
-        if (![400, 404, 429].includes(response.status)) break;
-      }
+      const result = await generateWithRetries(model, apiKey, prompt);
+      if (result.message) return NextResponse.json({ message: result.message });
+      lastStatus = result.status;
+      if (![400, 404, 429, 500, 502, 503, 504].includes(result.code)) break;
     }
 
-    console.error("No Gemini model completed the request:", lastError);
-    return NextResponse.json({ error: lastError.includes("429") ? "The Gemini free quota has been reached. Try again later." : "Gemini could not answer with the available models. Check the Gemini API key and Vercel logs." }, { status: 502 });
+    console.error("No Gemini model completed the request:", lastStatus);
+    if (lastStatus.startsWith("429")) return NextResponse.json({ error: "The Gemini free quota has been reached. Try again later." }, { status: 502 });
+    if (/^5\d\d/.test(lastStatus)) return NextResponse.json({ error: "Gemini is temporarily busy. Please try sending your message again in a few seconds." }, { status: 503 });
+    return NextResponse.json({ error: "Gemini could not answer with the available models. Check the Vercel logs." }, { status: 502 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Rock could not connect to Gemini. Check the Vercel function logs." }, { status: 500 });
   }
+}
+
+async function generateWithRetries(model: string, apiKey: string, prompt: string) {
+  let lastCode = 0;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${encodeURIComponent(apiKey)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const message = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (message) return { message, code: 200, status: "200" };
+    }
+    lastCode = response.status;
+    if (![429, 500, 502, 503, 504].includes(response.status)) break;
+    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400 * 2 ** attempt));
+  }
+  return { message: "", code: lastCode, status: String(lastCode) };
 }
 
 async function availableModels(apiKey: string) {
