@@ -1,2 +1,693 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-:root{--ink:#f4f0e8;--muted:#a29d96;--orange:#ff7043;--panel:#17191c;--line:#2d2f32;--soft:#1e2125;--gold:#f9d48f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0f1012;color:var(--ink);font-family:'DM Sans',sans-serif}.shell{max-width:1120px;margin:0 auto;padding:0 32px 36px;background:radial-gradient(ellipse at 50% 0%, rgba(52,35,28,.95) 0%, rgba(15,16,18,.9) 35%, transparent 100%);min-height:100vh}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06)}.brand{color:var(--ink);font:700 25px 'Space Grotesk';text-decoration:none;letter-spacing:-1.5px;display:flex;align-items:center;gap:10px}.brand-mark{height:35px;width:35px;border-radius:10px;background:var(--orange);display:grid;place-items:center;color:#17191c}.orange{color:var(--orange)}.header-actions{display:flex;align-items:center;gap:18px}.status{font:12px 'DM Mono';color:var(--muted);display:inline-flex;align-items:center;gap:8px}.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#62d38b;box-shadow:0 0 8px rgba(98,211,139,.8)}.icon-button,.clear,.secondary,.primary,.play-tool,.tempo-controls button,.suggestions button,.composer button,.speak-button{font-family:'DM Sans',sans-serif}.clear{border:0;background:none;color:var(--muted);font:12px 'DM Mono';cursor:pointer;display:inline-flex;align-items:center;gap:6px}.clear:hover{color:var(--ink)}.mobile-menu{display:none}.hero{padding:56px 0 28px}.eyebrow{color:var(--orange);font:12px 'DM Mono';letter-spacing:1.5px;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}.eyebrow.subtle{color:#d7d0c7}.hero h1{font:700 clamp(48px,8vw,84px) 'Space Grotesk';line-height:.98;letter-spacing:-4px;margin:18px 0 10px}.hero h1 em{font-style:normal;color:var(--orange)}.hero-copy{font-size:18px;line-height:1.6;color:#bcb4aa;max-width:600px;margin:0}.hero-stats{display:flex;gap:32px;margin-top:34px;flex-wrap:wrap}.hero-stats div{display:flex;flex-direction:column;gap:4px}.hero-stats strong{font:700 26px 'Space Grotesk'} .hero-stats span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}.tools-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;margin-bottom:18px}.tool-panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px}.tool-title{font:600 13px 'DM Mono';color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}.tempo{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px}.tempo strong{font:700 52px 'Space Grotesk';letter-spacing:-2px}.tempo span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1.8px;padding-bottom:10px}.tempo-controls{display:flex;align-items:center;gap:8px}.tempo-controls button{border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--ink);padding:8px 12px;border-radius:10px;cursor:pointer}.play-tool{display:inline-flex;align-items:center;gap:8px}.beats{display:flex;gap:8px;margin-top:16px}.beats i{display:inline-block;width:11px;height:11px;border-radius:50%;background:#3c3d41}.beats i.active{background:var(--orange);box-shadow:0 0 0 6px rgba(255,112,67,.16)}.tab-panel pre{margin:0;background:rgba(255,255,255,.02);border:1px solid var(--line);padding:12px;border-radius:12px;color:#d9d2ca;font:500 12px 'DM Mono';white-space:pre-wrap;overflow:auto}.tab-panel p{margin:12px 0 0;color:var(--muted);line-height:1.5}.course-panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 20px 0;margin-bottom:20px}.course-header{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-bottom:18px}.course-header h2{margin:8px 0 0;font:700 34px 'Space Grotesk';letter-spacing:-1.7px}.course-actions{display:flex;gap:10px;flex-wrap:wrap}.primary,.secondary{cursor:pointer;border-radius:12px;padding:11px 16px;border:1px solid var(--line);font:600 14px 'DM Sans';transition:transform .15s ease}.primary{background:var(--orange);color:#17191c;border-color:var(--orange)}.secondary{background:transparent;color:var(--ink)}.primary:hover,.secondary:hover,.composer button:hover,.suggestions button:hover,.speak-button:hover{transform:translateY(-1px)}.primary:disabled{opacity:.5;cursor:not-allowed}.course-builder{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:18px}.course-builder label{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:1px}.course-builder select{background:#14181a;border:1px solid var(--line);border-radius:12px;padding:12px 13px;color:var(--ink);font-size:15px}.coach-note{background:rgba(255,112,67,.08);border:1px solid rgba(255,112,67,.25);border-radius:12px;padding:12px 14px;color:#f6dcc9;margin-bottom:18px}.course-player{display:grid;grid-template-columns:1.45fr .7fr;gap:18px;padding-bottom:20px}.lesson-card,.mini-card{background:#14181a;border:1px solid var(--line);border-radius:16px;padding:18px}.lesson-card h3{margin:10px 0 6px;font:700 28px 'Space Grotesk';letter-spacing:-1.2px}.objective{color:#d7d0c7;line-height:1.5;margin:0 0 16px}.lesson-meta{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font:12px 'DM Mono';text-transform:uppercase;letter-spacing:1px}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--orange)}.chord-block{margin-bottom:18px}.chord-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font:12px 'DM Mono';text-transform:uppercase;letter-spacing:1px}.chord-header strong{font-size:18px;color:var(--ink);letter-spacing:0}.chord-diagram{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;padding:12px}.chord-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.chord-string{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.chord-dot{display:grid;place-items:center;height:18px;border-radius:50%;border:1px solid var(--line);background:transparent;color:transparent}.chord-dot.filled{background:var(--gold);border-color:var(--gold);color:#17191c}.chord-dot.muted{border-style:dashed}.chord-dot.open{background:rgba(255,255,255,.04);color:#d7d0c7}.step-box{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:14px;padding:14px 15px;margin-top:10px}.step-type{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,112,67,.1);border:1px solid rgba(255,112,67,.2);color:#ffb290;font:12px 'DM Mono';text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}.step-box p{margin:0;color:#efe5d0;line-height:1.7}.lesson-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.course-side{display:flex;flex-direction:column;gap:12px}.mini-card h4{margin:10px 0 6px;font:700 22px 'Space Grotesk';letter-spacing:-1px}.mini-card p{margin:0;color:var(--muted);line-height:1.6}.mini-label{font:12px 'DM Mono';text-transform:uppercase;letter-spacing:1.2px;color:var(--muted)}.progress-row{display:flex;justify-content:space-between;align-items:flex-end;margin:10px 0 8px}.progress-row strong{font:700 28px 'Space Grotesk';letter-spacing:-1px}.progress-row span{color:var(--muted);font-size:12px}.progress-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.04);overflow:hidden;border:1px solid var(--line)}.progress-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg, var(--orange), #ff945f)}.coach-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:16px}.card-heading{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}.avatar{width:39px;height:39px;border-radius:11px;background:rgba(255,112,67,.12);display:grid;place-items:center;color:var(--orange)}.card-heading h2{margin:0;font:700 26px 'Space Grotesk';letter-spacing:-1.1px}.card-heading p{margin:4px 0 0;color:var(--muted)}.online{margin-left:auto;display:inline-flex;align-items:center;gap:8px;color:#cfecc9;font:12px 'DM Mono';text-transform:uppercase;letter-spacing:1px}.online i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#62d38b}.conversation{display:flex;flex-direction:column;gap:12px;padding-top:18px;min-height:180px}.message-row{display:flex;gap:12px;align-items:flex-start}.message-row.user{justify-content:flex-end}.message-avatar{width:28px;height:28px;border-radius:9px;background:#253235;color:var(--ink);display:grid;place-items:center;font:12px 'DM Mono';flex-shrink:0}.message-row.user .message-avatar{background:#463124;color:#f6dcc9}.bubble-wrap{max-width:78%;display:flex;flex-direction:column;gap:8px}.message-row.user .bubble-wrap{align-items:flex-end}.bubble{display:inline-block;background:#202428;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:12px 14px;line-height:1.6;color:#f5f1ea;white-space:pre-wrap}.message-row.user .bubble{background:#2e2732;border-radius:14px 14px 4px 14px}.typing{display:flex;align-items:center;gap:6px;min-width:80px}.typing i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#a29d96;animation:blink 1s infinite alternate}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}@keyframes blink{to{opacity:.3;transform:translateY(2px)}}.speak-button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:6px 10px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:12px}.suggestions{display:flex;gap:8px;flex-wrap:wrap;padding-top:16px}.suggestions button{white-space:nowrap;border:1px solid var(--line);background:transparent;color:#d7d0c7;border-radius:999px;padding:9px 12px;cursor:pointer}.composer{display:flex;gap:10px;padding-top:18px}.composer input{flex:1;background:#111416;border:1px solid var(--line);border-radius:12px;padding:14px 15px;color:var(--ink);font-size:15px}.composer input::placeholder{color:#6b6e7a}.composer button{border:0;background:var(--orange);border-radius:12px;width:48px;height:48px;display:grid;place-items:center;color:#17191c;cursor:pointer}.hint{color:var(--muted);font-size:13px;margin:14px 0 0;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.hint button{background:none;border:0;color:var(--orange);cursor:pointer;padding:0;font:inherit}.footer{padding:26px 0 0;text-align:center;font-size:14px;color:var(--muted)}footer{padding:24px 0 0;text-align:center;color:var(--muted);font-size:14px}.footer span,footer span{color:var(--orange)}@media(max-width:820px){.shell{padding:0 18px 32px}.tools-grid,.course-player,.course-builder{grid-template-columns:1fr}.course-header{align-items:flex-start;flex-direction:column}.hero{padding-top:42px}.topbar{height:auto;padding:18px 0}.header-actions{gap:10px}.clear{display:none}.mobile-menu{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink)}.status{display:none}.bubble-wrap{max-width:88%}.hero h1{font-size:52px;letter-spacing:-2px}.course-header h2{font-size:26px}.lesson-card h3{font-size:28px}}.mobile-menu{display:flex}
+"use client";
+
+import { FormEvent, useEffect, useRef, useState } from "react";
+import {
+  ArrowUp,
+  BookOpen,
+  CheckCircle2,
+  ChevronRight,
+  Guitar,
+  Menu,
+  Music2,
+  Play,
+  Sparkles,
+  Speaker,
+  Square,
+  Target,
+  Trash2,
+  WandSparkles,
+  X,
+} from "lucide-react";
+
+type Message = { role: "user" | "assistant"; content: string };
+
+type CourseStep = {
+  type: "instruction" | "chord" | "exercise" | "rhythm" | "song" | "assessment";
+  instruction: string;
+  expectedChord?: string;
+  tempo?: number | null;
+  requiredAttempts?: number;
+};
+
+type CourseLesson = {
+  title: string;
+  objective: string;
+  steps: CourseStep[];
+};
+
+type Course = {
+  courseTitle: string;
+  skillLevel: string;
+  goal: string;
+  estimatedLessons: number;
+  lessons: CourseLesson[];
+};
+
+const welcome: Message = {
+  role: "assistant",
+  content:
+    "Hey! I’m Rock, your guitar coach. 🎸\n\nTell me what you want to play, what you’re stuck on, or ask me anything. I’ll keep track of our conversation and guide you one step at a time.",
+};
+
+const starters = [
+  "Teach me my first chord",
+  "Make me a 10-minute practice plan",
+  "How do I play a clean barre chord?",
+];
+
+const tabs = [
+  "e|--0--0--0--0--|",
+  "B|--0--0--0--0--|",
+  "G|--0--0--0--0--|",
+  "D|--2--2--2--2--|",
+  "A|--2--2--2--2--|",
+  "E|--0--0--0--0--|",
+];
+
+const COURSE_GOALS = [
+  "Complete Beginner",
+  "Learn Essential Chords",
+  "Learn Rhythm Guitar",
+  "Learn Fingerstyle",
+  "Learn Lead Guitar",
+  "Learn a Specific Song",
+  "Improve Chord Changes",
+  "Improve Strumming",
+  "Create My Own Goal",
+];
+
+const COURSE_LEVELS = ["Beginner", "Intermediate", "Advanced"];
+
+const CHORD_POSITIONS: Record<string, string[]> = {
+  G: ["x", "3", "2", "0", "0", "3"],
+  C: ["x", "1", "0", "2", "3", "x"],
+  D: ["x", "x", "0", "2", "3", "2"],
+  Em: ["0", "2", "2", "0", "0", "0"],
+  Am: ["x", "0", "1", "2", "2", "0"],
+  F: ["1", "1", "2", "3", "3", "1"],
+};
+
+const DEFAULT_COURSE_STATE = {
+  course: null as Course | null,
+  currentLessonIndex: 0,
+  currentStepIndex: 0,
+};
+
+export default function Home() {
+  const [messages, setMessages] = useState<Message[]>([welcome]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [speaking, setSpeaking] = useState<number | null>(null);
+  const [bpm, setBpm] = useState(80);
+  const [metronome, setMetronome] = useState(false);
+  const [beat, setBeat] = useState(0);
+  const [courseGoal, setCourseGoal] = useState(COURSE_GOALS[0]);
+  const [courseLevel, setCourseLevel] = useState(COURSE_LEVELS[0]);
+  const [course, setCourse] = useState<Course | null>(null);
+  const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [courseLoading, setCourseLoading] = useState(false);
+  const [courseMessage, setCourseMessage] = useState("");
+
+  const endRef = useRef<HTMLDivElement | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioRef = useRef<AudioContext | null>(null);
+
+  useEffect(() => {
+    try {
+      const savedChat = localStorage.getItem("rock-chat");
+      if (savedChat) setMessages(JSON.parse(savedChat));
+      const savedCourse = localStorage.getItem("rock-course-state");
+      if (savedCourse) {
+        const parsed = JSON.parse(savedCourse) as typeof DEFAULT_COURSE_STATE;
+        setCourse(parsed.course);
+        setCurrentLessonIndex(parsed.currentLessonIndex ?? 0);
+        setCurrentStepIndex(parsed.currentStepIndex ?? 0);
+      }
+    } catch {
+      // Ignore invalid local storage.
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("rock-chat", JSON.stringify(messages));
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    if (!course) {
+      localStorage.removeItem("rock-course-state");
+      return;
+    }
+    localStorage.setItem(
+      "rock-course-state",
+      JSON.stringify({
+        course,
+        currentLessonIndex,
+        currentStepIndex,
+      }),
+    );
+  }, [course, currentLessonIndex, currentStepIndex]);
+
+  useEffect(() => {
+    if (!metronome) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      setBeat(0);
+      return;
+    }
+
+    const tick = () => {
+      const context = audioRef.current || new AudioContext();
+      audioRef.current = context;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = "square";
+      oscillator.frequency.value = beat === 0 ? 880 : 660;
+      gain.gain.setValueAtTime(0.0001, context.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.08, context.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.09);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start();
+      oscillator.stop(context.currentTime + 0.1);
+      setBeat((value) => (value + 1) % 4);
+    };
+
+    tick();
+    timerRef.current = setInterval(tick, 60000 / bpm);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [metronome, bpm, beat]);
+
+  useEffect(() => () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
+  }, []);
+
+  async function send(text = input) {
+    const value = text.trim();
+    if (!value || loading) return;
+
+    const next = [...messages, { role: "user" as const, content: value }];
+    setMessages(next);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: next }),
+      });
+
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error("No response body");
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let answer = "";
+      setMessages([...next, { role: "assistant", content: "" }]);
+
+      const consume = (line: string) => {
+        if (!line.startsWith("data:")) return;
+        try {
+          const event = JSON.parse(line.slice(5).trim());
+          if (event.error) throw new Error(event.error);
+          if (event.text) {
+            answer += event.text;
+            setMessages((current) => {
+              const cloned = [...current];
+              const target = cloned[cloned.length - 1];
+              if (target?.role === "assistant") target.content = answer;
+              return cloned;
+            });
+          }
+        } catch {
+          // Ignore malformed payloads.
+        }
+      };
+
+      while (true) {
+        const { value: chunk, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(chunk, { stream: true });
+        const lines = buffer.split(/\r?\n/);
+        buffer = lines.pop() ?? "";
+        for (const line of lines) consume(line);
+      }
+
+      if (buffer.trim()) consume(buffer);
+      if (!answer) throw new Error("Empty response");
+    } catch (error) {
+      setMessages([
+        ...next,
+        {
+          role: "assistant",
+          content:
+            error instanceof Error ? error.message : "I lost the signal for a second. Try sending that again.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function submit(event: FormEvent) {
+    event.preventDefault();
+    send();
+  }
+
+  function clearChat() {
+    setMessages([welcome]);
+    localStorage.removeItem("rock-chat");
+    setMenuOpen(false);
+  }
+
+  function speak(text: string, index: number) {
+    if (!window.speechSynthesis) return;
+    if (speaking === index) {
+      window.speechSynthesis.cancel();
+      setSpeaking(null);
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text.replace(/\*/g, "").replace(/[#`]/g, ""));
+    utterance.rate = 0.92;
+    utterance.onend = () => setSpeaking(null);
+    window.speechSynthesis.speak(utterance);
+    setSpeaking(index);
+  }
+
+  function createCourse() {
+    setCourseMessage("");
+    setCourseLoading(true);
+
+    fetch("/api/course", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        goal: courseGoal,
+        skillLevel: courseLevel,
+      }),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || data?.error) {
+          throw new Error(data?.error || "Could not create your course.");
+        }
+        const generated = data as Course;
+        setCourse(generated);
+        setCurrentLessonIndex(0);
+        setCurrentStepIndex(0);
+        setCourseMessage(`Course ready: ${generated.courseTitle}`);
+      })
+      .catch((error: Error) => {
+        setCourseMessage(error.message || "Something went wrong while creating your course.");
+      })
+      .finally(() => setCourseLoading(false));
+  }
+
+  function repeatCourseInstruction() {
+    if (!course || currentStepIndex >= (course.lessons[currentLessonIndex]?.steps?.length ?? 0)) return;
+    const step = course.lessons[currentLessonIndex].steps[currentStepIndex];
+    if (!step?.instruction || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(step.instruction.replace(/\*/g, ""));
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function advanceCourse() {
+    if (!course) return;
+    const lesson = course.lessons[currentLessonIndex];
+    const nextStep = currentStepIndex + 1;
+
+    if (nextStep < (lesson?.steps.length ?? 0)) {
+      setCurrentStepIndex(nextStep);
+      return;
+    }
+
+    if (currentLessonIndex + 1 < course.lessons.length) {
+      setCurrentLessonIndex(currentLessonIndex + 1);
+      setCurrentStepIndex(0);
+      return;
+    }
+
+    setCourseMessage("Course complete. Nice work — keep practising and we’ll build on this next time.");
+  }
+
+  function skipForNow() {
+    if (!course) return;
+    const lesson = course.lessons[currentLessonIndex];
+    if ((currentStepIndex + 1) < (lesson?.steps.length ?? 0)) {
+      setCurrentStepIndex(currentStepIndex + 1);
+      return;
+    }
+
+    if (currentLessonIndex + 1 < course.lessons.length) {
+      setCurrentLessonIndex(currentLessonIndex + 1);
+      setCurrentStepIndex(0);
+      return;
+    }
+
+    setCourseMessage("You skipped the final step. That’s okay — we can come back to it.");
+  }
+
+  function continueCourse() {
+    try {
+      const savedCourse = localStorage.getItem("rock-course-state");
+      if (!savedCourse) {
+        setCourseMessage("There’s no saved course yet. Start a new one whenever you’re ready.");
+        return;
+      }
+
+      const parsed = JSON.parse(savedCourse) as typeof DEFAULT_COURSE_STATE;
+      if (parsed.course) {
+        setCourse(parsed.course);
+        setCurrentLessonIndex(parsed.currentLessonIndex ?? 0);
+        setCurrentStepIndex(parsed.currentStepIndex ?? 0);
+        setCourseMessage("Welcome back. We’ll continue from where you left off.");
+      }
+    } catch {
+      setCourseMessage("Your saved course could not be loaded. Start a new one.");
+    }
+  }
+
+  const currentLesson = course?.lessons[currentLessonIndex] ?? null;
+  const currentStep = currentLesson?.steps[currentStepIndex] ?? null;
+  const courseProgress = course
+    ? Math.round(
+        ((currentLessonIndex * 100) / Math.max(course.lessons.length, 1)) +
+          ((currentStepIndex / Math.max(currentLesson?.steps.length ?? 1, 1)) * 100) / Math.max(course.lessons.length, 1),
+      )
+    : 0;
+
+  return (
+    <main className="shell">
+      <header className="topbar">
+        <a className="brand" href="#">
+          <span className="brand-mark">
+            <Guitar size={22} />
+          </span>
+          <span>
+            rock<span className="orange">.</span>
+          </span>
+        </a>
+
+        <div className="header-actions">
+          <span className="status">
+            <i /> Gemini-ready coach
+          </span>
+          <button className="icon-button mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu">
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+          <button className="clear" onClick={clearChat}>
+            <Trash2 size={15} /> Clear chat
+          </button>
+        </div>
+      </header>
+
+      <section className="hero">
+        <div className="eyebrow">
+          <Sparkles size={15} /> YOUR POCKET-SIZED COACH
+        </div>
+        <h1>
+          Make some <em>noise.</em>
+          <br />
+          Learn to play.
+        </h1>
+        <p className="hero-copy">
+          A guitar coach that teaches in small steps, remembers your progress, and helps you improve without throwing a giant wall of text at you.
+        </p>
+
+        <div className="hero-stats">
+          <div>
+            <strong>01</strong>
+            <span>Ask anything</span>
+          </div>
+          <div>
+            <strong>02</strong>
+            <span>Learn in steps</span>
+          </div>
+          <div>
+            <strong>03</strong>
+            <span>Track your progress</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="course-panel">
+        <div className="course-header">
+          <div>
+            <div className="eyebrow subtle">
+              <BookOpen size={15} /> COURSE MODE
+            </div>
+            <h2>Start a Course</h2>
+          </div>
+          <div className="course-actions">
+            <button className="secondary" onClick={continueCourse}>Continue Course</button>
+            <button className="primary" onClick={createCourse} disabled={courseLoading}>
+              {courseLoading ? "Creating..." : "Start a Course"}
+            </button>
+          </div>
+        </div>
+
+        <div className="course-builder">
+          <label>
+            <span>Goal</span>
+            <select value={courseGoal} onChange={(event) => setCourseGoal(event.target.value)}>
+              {COURSE_GOALS.map((goal) => (
+                <option key={goal} value={goal}>{goal}</option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            <span>Skill level</span>
+            <select value={courseLevel} onChange={(event) => setCourseLevel(event.target.value)}>
+              {COURSE_LEVELS.map((level) => (
+                <option key={level} value={level}>{level}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {courseMessage && <div className="coach-note">{courseMessage}</div>}
+
+        {course && currentLesson && currentStep && (
+          <div className="course-player">
+            <div className="lesson-card">
+              <div className="lesson-meta">
+                Lesson {currentLessonIndex + 1} of {course.lessons.length}
+                <span className="dot" />
+                {course.skillLevel}
+              </div>
+
+              <h3>{currentLesson.title}</h3>
+              <p className="objective">{currentLesson.objective}</p>
+
+              {currentStep.expectedChord && (
+                <div className="chord-block">
+                  <div className="chord-header">
+                    <strong>{currentStep.expectedChord}</strong>
+                    <span>Practice this chord</span>
+                  </div>
+                  <ChordDiagram chordName={currentStep.expectedChord} />
+                </div>
+              )}
+
+              <div className="step-box">
+                <span className="step-type">{currentStep.type}</span>
+                <p>{currentStep.instruction}</p>
+              </div>
+
+              <div className="lesson-actions">
+                <button className="secondary" onClick={repeatCourseInstruction}>
+                  <Speaker size={15} /> Speak
+                </button>
+                <button className="secondary" onClick={skipForNow}>
+                  <ChevronRight size={15} /> Skip for now
+                </button>
+                <button className="primary" onClick={advanceCourse}>
+                  <CheckCircle2 size={15} /> Next step
+                </button>
+              </div>
+            </div>
+
+            <aside className="course-side">
+              <div className="mini-card">
+                <div className="mini-label">Current course</div>
+                <h4>{course.courseTitle}</h4>
+                <p>{course.goal}</p>
+              </div>
+
+              <div className="mini-card">
+                <div className="mini-label">Progress</div>
+                <div className="progress-row">
+                  <strong>{courseProgress}%</strong>
+                  <span>{currentLessonIndex + 1}/{course.lessons.length} lessons</span>
+                </div>
+                <div className="progress-bar"><span style={{ width: `${Math.min(courseProgress, 100)}%` }} /></div>
+              </div>
+
+              <div className="mini-card">
+                <div className="mini-label">Practice reminder</div>
+                <p>Keep the tempo steady and focus on clean finger placement before rushing the next chord.</p>
+              </div>
+            </aside>
+          </div>
+        )}
+      </section>
+
+      <section className="tools-grid">
+        <div className="tool-panel">
+          <div className="tool-title">
+            <Music2 size={17} /> Practice metronome
+          </div>
+          <div className="tempo">
+            <strong>{bpm}</strong>
+            <span>BPM</span>
+          </div>
+          <div className="tempo-controls">
+            <button onClick={() => setBpm((value) => Math.max(40, value - 5))}>-</button>
+            <button onClick={() => setBpm((value) => Math.min(200, value + 5))}>+</button>
+            <button className="play-tool" onClick={() => setMetronome((value) => !value)}>
+              {metronome ? <Square size={15} /> : <Play size={15} />}
+              {metronome ? "Stop" : "Play"}
+            </button>
+          </div>
+          <div className="beats">
+            {[0, 1, 2, 3].map((value) => (
+              <i key={value} className={metronome && beat === value ? "active" : ""} />
+            ))}
+          </div>
+        </div>
+
+        <div className="tool-panel tab-panel">
+          <div className="tool-title">
+            <Target size={17} /> Essential starter tab
+          </div>
+          <pre>{tabs.join("\n")}</pre>
+          <p>Practice slowly and listen for clean notes. Start with open strings and a steady rhythm.</p>
+        </div>
+      </section>
+
+      <section className="coach-card">
+        <div className="card-heading">
+          <div className="avatar">
+            <WandSparkles size={20} />
+          </div>
+          <div>
+            <h2>Talk to Rock</h2>
+            <p>Your context-aware guitar coach</p>
+          </div>
+          <span className="online">
+            <i /> Online
+          </span>
+        </div>
+
+        <div className="conversation">
+          {messages.map((message, index) => (
+            <div key={`${message.role}-${index}`} className={`message-row ${message.role}`}>
+              <div className="message-avatar">{message.role === "assistant" ? <Guitar size={16} /> : "You"}</div>
+              <div className="bubble-wrap">
+                <div className="bubble">
+                  {message.content.split("\n").map((line, i) => (
+                    <span key={`${line}-${i}`}>
+                      {line}
+                      {i < message.content.split("\n").length - 1 && <br />}
+                    </span>
+                  ))}
+                </div>
+                {message.role === "assistant" && (
+                  <button className="speak-button" onClick={() => speak(message.content, index)}>
+                    {speaking === index ? <Square size={12} /> : <Speaker size={12} />} {speaking === index ? "Stop" : "Listen"}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+
+          {loading && (
+            <div className="message-row assistant">
+              <div className="message-avatar">
+                <Guitar size={16} />
+              </div>
+              <div className="bubble typing">
+                <i />
+                <i />
+                <i />
+              </div>
+            </div>
+          )}
+
+          <div ref={endRef} />
+        </div>
+
+        <div className="suggestions">
+          {starters.map((starter) => (
+            <button key={starter} onClick={() => send(starter)}>
+              {starter}
+            </button>
+          ))}
+        </div>
+
+        <form className="composer" onSubmit={submit}>
+          <input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder="Ask Rock anything..."
+            aria-label="Message Rock"
+          />
+          <button type="submit" disabled={!input.trim() || loading} aria-label="Send message">
+            <ArrowUp size={20} />
+          </button>
+        </form>
+
+        <p className="hint">
+          Rock remembers this conversation in your browser <button onClick={clearChat}>Start fresh</button>
+        </p>
+      </section>
+
+      <footer>
+        Built for curious players <span>✦</span> Keep making noise
+      </footer>
+    </main>
+  );
+}
+
+function ChordDiagram({ chordName }: { chordName: string }) {
+  const positions = CHORD_POSITIONS[chordName] || ["x", "x", "x", "x", "x", "x"];
+
+  return (
+    <div className="chord-diagram" aria-label={`${chordName} chord diagram`}>
+      <div className="chord-grid">
+        {Array.from({ length: 6 }).map((_, stringIndex) => (
+          <div key={`string-${stringIndex}`} className="chord-string">
+            {Array.from({ length: 5 }).map((__, fretIndex) => {
+              const value = positions[stringIndex] ?? "x";
+              const isDot = value !== "x" && Number(value) === fretIndex + 1;
+              const isMuted = value === "x";
+              const isOpen = value === "0";
+              return (
+                <span
+                  key={`fret-${stringIndex}-${fretIndex}`}
+                  className={[
+                    "chord-dot",
+                    isDot ? "filled" : "",
+                    isMuted ? "muted" : "",
+                    isOpen ? "open" : "",
+                  ].join(" ")}
+                >
+                  {isOpen ? "○" : isDot ? "●" : ""}
+                </span>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
