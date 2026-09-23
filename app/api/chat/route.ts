@@ -9,12 +9,9 @@ export async function POST(request: Request) {
     const { messages } = (await request.json()) as { messages?: Message[] };
     if (!messages?.length) return NextResponse.json({ error: "No messages provided" }, { status: 400 });
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY?.trim();
     if (!apiKey) {
-      return NextResponse.json({
-        message: demoReply(messages[messages.length - 1].content),
-        demo: true,
-      });
+      return NextResponse.json({ message: demoReply(messages[messages.length - 1].content), demo: true });
     }
 
     const prompt = `${SYSTEM_PROMPT}\n\nConversation so far:\n${messages
@@ -23,14 +20,25 @@ export async function POST(request: Request) {
       .join("\n")}\n\nRespond as Rock to the student's latest message.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
       },
     );
-    if (!response.ok) throw new Error("Gemini request failed");
+
+    if (!response.ok) {
+      const details = await response.text();
+      console.error("Gemini API error", response.status, details);
+      return NextResponse.json(
+        { error: response.status === 400 || response.status === 403
+            ? "Gemini rejected the API key or request. Check that GEMINI_API_KEY is correct and redeploy after saving it."
+            : "Gemini is temporarily unavailable. Try again in a moment." },
+        { status: 502 },
+      );
+    }
+
     const data = await response.json();
     const message = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!message) throw new Error("Gemini returned no text");
