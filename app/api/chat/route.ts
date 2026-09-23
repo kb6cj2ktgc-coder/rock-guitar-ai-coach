@@ -13,48 +13,39 @@ export async function POST(request: Request) {
     if (!messages?.length) return NextResponse.json({ error: "No messages provided" }, { status: 400 });
     const key = process.env.GEMINI_API_KEY?.trim();
     if (!key) return sse({ text: demo(messages[messages.length - 1].content) });
-    const model = await findModel(key);
-    const prompt = `${SYSTEM}\n\nConversation:\n${messages.slice(-20).map((m) => `${m.role === "user" ? "Student" : "Rock"}: ${m.content}`).join("\n")}\n\nReply to the latest student message.`;
-    const body = JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] });
-    const streamResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:streamGenerateContent?alt=sse&key=${encodeURIComponent(key)}`, { method: "POST", headers: { "Content-Type": "application/json" }, body });
-    if (streamResponse.ok && streamResponse.body) return proxyGeminiStream(streamResponse.body);
 
-    // Some Gemini models/keys allow generateContent but reject streaming. Fall back to it.
-    const normalResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${encodeURIComponent(key)}`, { method: "POST", headers: { "Content-Type": "application/json" }, body });
-    if (!normalResponse.ok) {
-      console.error("Gemini request failed", streamResponse.status, await streamResponse.text(), normalResponse.status, await normalResponse.text());
-      return sse({ error: normalResponse.status >= 500 ? "Gemini is temporarily unavailable. Please try again in a few seconds." : `Gemini request failed (${normalResponse.status}).` }, 502);
+    const prompt = `${SYSTEM}\n\nConversation:\n${messages.slice(-20).map((m) => `${m.role === "user" ? "Student" : "Rock"}: ${m.content}`).join("\n")}\n\nReply to the latest student message.`;
+    const models = await findModels(key);
+    let lastStatus = 0;
+    for (const model of models) {
+      const body = JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] });
+      // Use the regular endpoint first. It is more widely supported than streamGenerateContent.
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/${model}:generateContent?key=${encodeURIComponent(key)}`, { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      if (response.ok) {
+        const data = await response.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+        const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("") || "";
+        if (text) return sse({ text });
+      }
+      lastStatus = response.status;
+      console.error("Gemini model failed", model, response.status, await response.text());
+      if (![404, 429, 500, 502, 503, 504].includes(response.status)) break;
     }
-    const data = await normalResponse.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
-    const text = data.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("") || "";
-    return text ? sse({ text }) : sse({ error: "Gemini returned no text." }, 502);
+    return sse({ error: lastStatus >= 500 ? "Gemini is temporarily unavailable. Please try again in a few seconds." : `Gemini request failed (${lastStatus}). Check that the API key has access to a supported Gemini model.` }, 502);
   } catch (error) {
     console.error("Chat route error", error);
     return sse({ error: "Rock could not connect to Gemini. Try again." }, 502);
   }
 }
 
-function proxyGeminiStream(body: ReadableStream<Uint8Array>) {
-  const reader = body.getReader(); const decoder = new TextDecoder(); const encoder = new TextEncoder(); let buffer = "";
-  const stream = new ReadableStream({ async pull(controller) {
-    const { value, done } = await reader.read();
-    if (done) { controller.close(); return; }
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split(/\r?\n/); buffer = lines.pop() || "";
-    for (const line of lines) {
-      if (!line.startsWith("data:")) continue;
-      try { const json = JSON.parse(line.slice(5).trim()); const text = json.candidates?.[0]?.content?.parts?.map((part: { text?: string }) => part.text || "").join(""); if (text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`)); } catch { /* wait for the next complete SSE line */ }
-    }
-  }, cancel() { reader.cancel(); }});
-  return new Response(stream, { headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache", "X-Accel-Buffering": "no" } });
-}
-
-async function findModel(key: string) {
+async function findModels(key: string) {
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`);
   if (!response.ok) throw new Error(`Model list failed: ${response.status}`);
   const data = await response.json() as { models?: Model[] };
-  const available = (data.models || []).filter((m) => m.name && m.supportedGenerationMethods?.includes("generateContent"));
-  const preferred = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash-lite"];
-  return preferred.map((name) => `models/${name}`).find((name) => available.some((m) => m.name === name)) || available.find((m) => /flash/i.test(m.name || ""))?.name || available[0]?.name || "models/gemini-2.0-flash";
+  const available = (data.models || []).filter((m) => m.name && m.supportedGenerationMethods?.includes("generateContent")).map((m) => m.name as string);
+  const preferred = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash-lite"].map((name) => `models/${name}`);
+  const ordered = [...preferred.filter((name) => available.includes(name)), ...available.filter((name) => /flash/i.test(name) && !preferred.includes(name)), ...available.filter((name) => !/flash/i.test(name) && !preferred.includes(name))];
+  if (!ordered.length) throw new Error("No Gemini model supports generateContent");
+  return ordered;
 }
+
 function demo(input: string) { if (/warmup|practice plan/i.test(input)) return "Here’s a simple 10-minute warmup: 2 minutes finger warmups, 5 minutes chord practice, and 3 minutes switching between two chords. Start the timer and I’ll coach you through each section."; return "I’m Rock, your guitar coach. Tell me your level and what you want to learn, and we’ll take it one step at a time."; }
