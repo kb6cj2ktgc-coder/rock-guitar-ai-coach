@@ -5,7 +5,7 @@ import { ArrowUp, Guitar, Menu, Mic, MicOff, Music2, Pause, Play, RotateCcw, Spa
 
 type Message = { role: "user" | "assistant"; content: string };
 type SpeechRecognitionEventLike = { results: { [index: number]: { [index: number]: { transcript: string } } } };
-type SpeechRecognitionLike = { lang: string; interimResults: boolean; continuous: boolean; start: () => void; stop: () => void; onresult: ((event: SpeechRecognitionEventLike) => void) | null; onend: (() => void) | null; onerror: (() => void) | null };
+type SpeechRecognitionLike = { lang: string; interimResults: boolean; continuous: boolean; start: () => void; stop: () => void; onresult: ((event: SpeechRecognitionEventLike) => void) | null; onend: (() => void) | null; onerror: ((event: { error?: string }) => void) | null };
 type SpeechWindow = Window & { webkitSpeechRecognition?: new () => SpeechRecognitionLike; SpeechRecognition?: new () => SpeechRecognitionLike };
 
 const welcome: Message = { role: "assistant", content: "Hey! I’m Rock, your guitar coach. 🎸\n\nTell me what you want to play, what you’re stuck on, or even ask me something completely random. I’ll keep track of our conversation and guide you one step at a time." };
@@ -48,14 +48,37 @@ export default function Home() {
   function clearChat() { setMessages([welcome]); localStorage.removeItem("rock-chat"); setMenuOpen(false); }
   function speak(text: string, index: number) { if (!window.speechSynthesis) return; if (speaking === index) { window.speechSynthesis.cancel(); setSpeaking(null); return; } window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text.replace(/[*#]/g, "")); utterance.rate = .92; utterance.onend = () => setSpeaking(null); window.speechSynthesis.speak(utterance); setSpeaking(index); }
   function toggleVoice() {
-    if (listening) { recognitionRef.current?.stop(); setListening(false); return; }
     const SpeechRecognition = (window as SpeechWindow).SpeechRecognition || (window as SpeechWindow).webkitSpeechRecognition;
-    if (!SpeechRecognition) { setMicStatus("Voice input is not supported in this browser."); return; }
-    const recognition = new SpeechRecognition(); recognition.lang = "en-US"; recognition.interimResults = false; recognition.continuous = false;
-    recognition.onresult = (event) => { const spoken = event.results[0][0].transcript; setInput(spoken); setMicStatus(`Heard: “${spoken}”`); if (/^(rock[,. ]*)?(next step|next|continue)$/i.test(spoken.trim())) send("next"); else if (/play (that )?slower/i.test(spoken)) setBpm((value) => Math.max(40, value - 10)); };
-    recognition.onend = () => setListening(false); recognition.onerror = () => { setMicStatus("Microphone permission was denied or unavailable."); setListening(false); }; recognitionRef.current = recognition; recognition.start(); setListening(true); setMicStatus("Listening… try saying “next step”");
+    if (!SpeechRecognition) {
+      setMicStatus("Voice input is not supported in this browser. On iPhone Safari, speech-to-text is not available. Try Chrome or Edge on mobile, or keep using text input for now.");
+      return;
+    }
+
+    if (listening) {
+      recognitionRef.current?.stop();
+      setListening(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+    recognition.onresult = (event) => {
+      const spoken = event.results[0][0].transcript;
+      setInput(spoken);
+      setMicStatus(`Heard: “${spoken}”`);
+      if (/^(rock[,. ]*)?(next step|next|continue)$/i.test(spoken.trim())) send("next");
+      else if (/play (that )?slower/i.test(spoken)) setBpm((value) => Math.max(40, value - 10));
+    };
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => { setMicStatus("Microphone permission was denied or unavailable. Please try again."); setListening(false); };
+    recognitionRef.current = recognition;
+    recognition.start();
+    setListening(true);
+    setMicStatus("Listening… try saying “next step”");
   }
-  function listenForGuitar() { setMicStatus("Experimental listening mode: play one clear note or chord near your microphone."); navigator.mediaDevices?.getUserMedia({ audio: true }).then(() => setMicStatus("Mic is ready. Rock can hear the input, but chord recognition is experimental.")); }
+  function listenForGuitar() { setMicStatus("Experimental listening mode: play one clear note or chord near your microphone."); navigator.mediaDevices?.getUserMedia({ audio: true }).then(() => setMicStatus("Mic is ready. Rock can hear the input, but automated chord recognition is still experimental.")); }
 
   return <main className="shell">
     <header className="topbar"><a className="brand" href="#"><span className="brand-mark"><Guitar size={22} /></span><span>rock<span className="orange">.</span></span></a><div className="header-actions"><span className="status"><i /> Gemini-ready coach</span><button className="icon-button mobile-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu">{menuOpen ? <X size={19} /> : <Menu size={19} />}</button><button className="clear" onClick={clearChat}><Trash2 size={15} /> Clear chat</button></div></header>
@@ -65,3 +88,4 @@ export default function Home() {
     <footer>Built for curious players <span>✦</span> Keep making noise</footer>
   </main>;
 }
+
